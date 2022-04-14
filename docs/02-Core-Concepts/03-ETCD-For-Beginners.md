@@ -2,7 +2,7 @@
   - Take me to the [Video Tutorial](https://kodekloud.com/topic/etcd-for-beginners/)
 
   In this section, we will take a quick look at introduction to ETCD for beginners. 
-  - What is ETCD?
+  - What is ETCD(ett-see-dee)?
   - What is a Key-Value Store?
   - How to get started quickly with ETCD?
   - How to operate ETCD?
@@ -16,6 +16,7 @@
      ![relational-dbs](../../images/relational-dbs.PNG)
      
    - A Key-Value Store stores information in a Key and Value format.
+   - No duplicate keys allowed.
        
      ![key-value](../../images/key-value.PNG)
        
