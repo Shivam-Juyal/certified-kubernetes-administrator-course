@@ -7,7 +7,23 @@ In this section, we will talk about kube-apiserver in kubernetes
 - Kube-apiserver is primary management component in K8s.
 - When we run a ```kubectl``` command, the kubectl utility is reaching kube-apiserver. The kube-apiserver first authenticates the request and validates it.
 - It then retrives the data from the ETCD cluster and responds back with the requested information.
-- Kube-apiserver is responsible for **`authenticating`**, **`validating`** requests, **`retrieving`** and **`Updating`** data in ETCD key-value store. In fact kube-apiserver is the only component that interacts directly to the etcd datastore. The other components such as kube-scheduler, kube-controller-manager and kubelet uses the API-Server to update in the cluster in their respective areas.
+- **`IMPORTANT`**: Kube-apiserver is responsible for **`authenticating`**, **`validating`** requests, **`retrieving`** and **`Updating`** data in ETCD key-value store. In fact kube-apiserver is the only component that interacts directly to the etcd datastore. The other components such as kube-scheduler, kube-controller-manager and kubelet uses the API-Server to update in the cluster in their respective areas.
+
+#### Creation of a pod
+- We need not use ```kubectl``` to make pods.
+- We can also call apis directly through ```post``` requests such as ```curl -X POST /api/v1/namespaces/default/pods ...[other]```.
+- The request is first authenticated and then validated.
+- The api server creates a pod object without assigning it to a node.
+- api server updates the information in the ETCD server and also updates the user that the pod has been created.
+- Scheduler continously monitors the kube-apiserver and realises that there is a new pod with no nodes assigned.
+- The scheduler identifies the right node to place the new pod on, and communicates that back to the kube-apiserver.
+- The kube-apiserver then updates the information on the etcd cluster and then passes the information to the kubelet of the appropriate worker node.
+- Kubelet then creates the pod on the node and instructs the container runtime engine to deploy the application image.
+- Once done, kubelet updates the status back to the kub-apiserver and the kube-apiserver then updates the data back to the ETCD cluster.
+
+---
+- A similar pattern is followed everytime a change is requested.
+- Kube-apiserver is at the center of all the different tasks that needs to be performed to make a change in the cluster.
   
   ![post](../../images/post.PNG)
   
