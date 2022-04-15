@@ -26,6 +26,7 @@ In this section, we will take a look at kube-controller-manager.
      
    ![other-controllers](../../images/other-controllers.PNG)
    
+   - All these controllera are packaged into a single process known as the kubernetes controller manager.
    
   ## Installing Kube-Controller-Manager
   - When you install kube-controller-manager the different controllers will get installed as well.
