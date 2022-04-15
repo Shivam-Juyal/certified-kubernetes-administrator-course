@@ -20,6 +20,8 @@ In this section, we will take a look at ETCD role in kubernetes
   
 - There are many options passed to the service, a number of them relate to certificates.
 - ```adverise-clinet-urls https://${INTERNAL_IP}:2379```, this is the address on which ETCD listens.
+- This is the URL that needs to be configured on Kubeapi server, when it tries to reach ETCD server.
+
 ## Setup - Kubeadm
 - If you setup your cluster using **`kubeadm`** then kubeadm will deploy etcd server for you as a pod in **`kube-system`** namespace.
   ```
