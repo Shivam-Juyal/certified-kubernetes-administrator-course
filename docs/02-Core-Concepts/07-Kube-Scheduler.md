@@ -5,6 +5,14 @@ In this section, we will take a look at kube-scheduler.
 
 #### kube-scheduler is responsible for scheduling pods on nodes.  
 - The kube-scheduler is only responsible for deciding which pod goes on which node. It doesn't actually place the pod on the nodes, that's the job of the **`kubelet`**.
+- Scheduler makes sure that the correct pod goes into the correct node.
+- In kubernetes, scheduler decides which nodes the pods are placed on, depending on certain criteria.
+- The scheduler looks for each pod and tries to find the best node for it.
+- Suppose the pod has a requirement of 10 cpu.
+  - First phase : **Filter Nodes**
+    - In this phase the scheduler filters out the nodes that could not accomodate the pod's requirement of 10 cpu.
+  - Second phase : **Rank Nodes**
+    - In this phase the scheduler ranks the nodes to identify the best fit for the pod. It uses a priority function to assign a score to nodes on a scale of 0 to 10. for example, the scheduler calculates the amount the resources that will be free on the nodes after placing the pod on them. The node with more free resources after placing the pod gets the better rank.      
 
   ![kube-scheduler1](../../images/kube-scheduler1.PNG)
   
