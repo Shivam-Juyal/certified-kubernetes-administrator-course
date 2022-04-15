@@ -8,12 +8,16 @@ In this section, we will take a look at kube-controller-manager.
 - In kubernetes terms, a controller is a process that continuously monitors the state of the components within the system and works towards bringing the whole system to the desired functioning state.
 
 ## Node Controller
-   - Responsible for monitoring the state of the Nodes and taking necessary actions to keep the application running. 
+   - Responsible for monitoring the state of the Nodes and taking necessary actions to keep the application running.
+   - Checks the status of the node, every 5 seconds.
+   - If a nodes heartbeat is unreachable to the node-controller through kube-apiserver, the node-controller waits for 40seconds  (Node Monitor Grace Time) after which it marks the node unreaachable if the node is still not reachable.
+   - After a node is marked unreachable, node-controller gives it 5minutes to come back up(POD eviction timeout). If the node doesn't come back up, node-controller removes all the pods in that node and provisions them with the new healthy pods if the pods are part of the replicasets. 
   
    ![node-controller](../../images/node-controller.PNG)
    
 ## Replication Controller
    - It is responsible for monitoring the status of replicasets and ensuring that the desired number of pods are available at all time within the set.
+   - If a pod dies it creates another one.
    
    ![replication-controller](../../images/replication-controller.PNG)
    
